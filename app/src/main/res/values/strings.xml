@@ -1,0 +1,5 @@
+<resources>
+  <string name="app_name">Venezuela News</string>
+  <string name="default_error">Oops, something wrong happened</string>
+  <string name="retry">Retry</string>
+</resources>
