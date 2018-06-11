@@ -3,7 +3,8 @@ package io.jffiorillo.venezuelanews
 import android.app.Activity
 import android.app.Application
 import android.app.Fragment
-import android.support.v7.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate
+import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -39,5 +40,6 @@ class App : Application(), HasFragmentInjector, HasActivityInjector {
     super.onCreate()
     applicationComponent.inject(this)
     Timber.plant(DebugTree())
+    AndroidThreeTen.init(this);
   }
 }

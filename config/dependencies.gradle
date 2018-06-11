@@ -1,18 +1,21 @@
 ext {
-  dagger_version = '2.15'
+  dagger_version = '2.16'
   anko_version = '0.10.4'
   arch_version = '1.1.0'
   store_version = '3.0.0'
   timber_version = '4.6.0'
   retrofit_version = '2.3.0'
   logging_interceptor_version = '3.8.1'
-  constraint_version='1.0.2'
-  support_version = '27.1.0'
+  constraint_version = '1.1.0'
+  support_version = '1.0.0-alpha3'
   rx_java_version = '2.1.10'
   rx_android_version = '2.0.2'
   rx_kotlin_version = '2.2.0'
   rx_lint_version = '1.6.1'
   glide_version = '4.6.1'
+  moshi_version = '1.6.0'
+  moshi_retrofit_version = '2.3.0'
+  threetenabp_version = '1.1.0'
 
   dagger = [android  : "com.google.dagger:dagger-android:" + dagger_version,
             support  : "com.google.dagger:dagger-android-support:" + dagger_version,
@@ -33,28 +36,39 @@ ext {
            filesystem: "com.nytimes.android:filesystem3:" + store_version]
 
   rx = [
-      java : "io.reactivex.rxjava2:rxjava:"+rx_java_version,
-      android : "io.reactivex.rxjava2:rxandroid:"+rx_android_version,
-      kotlin : "io.reactivex.rxjava2:rxkotlin:"+rx_kotlin_version,
-      lint : "nl.littlerobots.rxlint:rxlint:"+rx_lint_version
+      java   : "io.reactivex.rxjava2:rxjava:" + rx_java_version,
+      android: "io.reactivex.rxjava2:rxandroid:" + rx_android_version,
+      kotlin : "io.reactivex.rxjava2:rxkotlin:" + rx_kotlin_version,
+      lint   : "nl.littlerobots.rxlint:rxlint:" + rx_lint_version
   ]
 
   square = [retrofit     : 'com.squareup.retrofit2:retrofit:' + retrofit_version,
-            converterGson: 'com.squareup.retrofit2:converter-gson:' + retrofit_version,
             adapterRxJava: 'com.squareup.retrofit2:adapter-rxjava2:' + retrofit_version,
             interceptor  : 'com.squareup.okhttp3:logging-interceptor:' + logging_interceptor_version,
-            timber       : 'com.jakewharton.timber:timber:' + timber_version]
+            timber       : 'com.jakewharton.timber:timber:' + timber_version,
+            moshi        : 'com.squareup.moshi:moshi-kotlin:' + moshi_version,
+            moshiAdapter : 'com.squareup.moshi:moshi-adapters:' + moshi_version,
+            moshiRetrofit: 'com.squareup.retrofit2:converter-moshi:' + moshi_retrofit_version,
+            threetenabp  : 'com.jakewharton.threetenabp:threetenabp:' + threetenabp_version
+  ]
 
   android = [
-      support : "com.android.support:appcompat-v7:"+support_version,
-      constraint : "com.android.support.constraint:constraint-layout:"+constraint_version,
-      recycler : "com.android.support:recyclerview-v7:"+support_version
+      support   : "androidx.appcompat:appcompat:" + support_version,
+      constraint: "androidx.constraintlayout:constraintlayout:" + constraint_version,
+      recycler  : "androidx.recyclerview:recyclerview:" + support_version,
+      design    : "com.google.android.material:material:" + support_version,
+      palette   : 'androidx.palette:palette:' + support_version,
+      core      : 'androidx.core:core-ktx:' + support_version,
+      material  : 'com.google.android.material:material:' + support_version
   ]
 
   glide = [
-      core : "com.github.bumptech.glide:glide:"+glide_version,
-      okhttp : "com.github.bumptech.glide:okhttp3-integration:"+glide_version,
-      annotations : "com.github.bumptech.glide:annotations:"+glide_version,
-      compiler : "com.github.bumptech.glide:compiler:"+glide_version
+      core        : "com.github.bumptech.glide:glide:" + glide_version,
+      okhttp      : "com.github.bumptech.glide:okhttp3-integration:" + glide_version,
+      annotations : "com.github.bumptech.glide:annotations:" + glide_version,
+      compiler    : "com.github.bumptech.glide:compiler:" + glide_version,
+      glidepalette: 'com.github.florent37:glidepalette:2.1.2'
   ]
+
+
 }

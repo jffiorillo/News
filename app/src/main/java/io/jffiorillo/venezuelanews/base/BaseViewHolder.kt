@@ -1,6 +1,5 @@
 package io.jffiorillo.venezuelanews.base
 
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.ViewDataBinding
 
-abstract class BaseViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
+abstract class BaseViewHolder(binding: ViewDataBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)

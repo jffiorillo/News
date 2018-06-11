@@ -1,7 +1,7 @@
 package io.jffiorillo.venezuelanews.di
 
+import com.squareup.moshi.Moshi
 import io.jffiorillo.venezuelanews.base.ExecutionSchedulers
-import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import io.jffiorillo.venezuelanews.BuildConfig
@@ -12,7 +12,7 @@ import retrofit2.CallAdapter
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import timber.log.Timber
 import javax.inject.Named
 import javax.inject.Singleton
@@ -51,8 +51,7 @@ class ApiModule {
 
   @Provides
   @Singleton
-  internal fun provideConverterFactory(gson: Gson): Converter.Factory =
-      GsonConverterFactory.create(gson)
+  internal fun provideConverterFactory(moshi: Moshi): Converter.Factory = MoshiConverterFactory.create(moshi)
 
   @Provides
   @Singleton
@@ -69,5 +68,5 @@ class ApiModule {
   @Provides
   @Singleton
   @Named("rootUrl")
-  internal fun provideRootUrl(): String = "http://gunow.azurewebsites.net/"
+  internal fun provideRootUrl(): String = "https://gunow.vcoud.com/"
 }

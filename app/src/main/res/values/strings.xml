@@ -2,4 +2,7 @@
   <string name="app_name">Venezuela News</string>
   <string name="default_error">Oops, something wrong happened</string>
   <string name="retry">Retry</string>
+	<string name="image_content_description">Image</string>
+	<string name="article_hours_time">hace %d horas</string>
+	<string name="article_minutes_time">hace %d minutos</string>
 </resources>

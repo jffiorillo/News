@@ -1,7 +1,7 @@
 package io.jffiorillo.venezuelanews.list
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.nytimes.android.external.store3.base.impl.Store
 import io.jffiorillo.venezuelanews.R
 import io.jffiorillo.venezuelanews.base.BaseViewModel
@@ -9,6 +9,7 @@ import io.jffiorillo.venezuelanews.base.ExecutionSchedulers
 import io.jffiorillo.venezuelanews.model.Article
 import io.reactivex.rxkotlin.addTo
 import retrofit2.HttpException
+import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
@@ -57,13 +58,16 @@ constructor(private val source: Store<List<Article>, String>,
     searchRepositories(fresh = true)
   }
 
-  private fun handleError(t: Throwable) = when (t) {
-    is HttpException -> {
+  private fun handleError(t: Throwable) {
+    when (t) {
+      is HttpException -> {
+      }
+      is IOException -> {
+      }
+      else -> {
+        snackbarMessage.setValue(R.string.default_error)
+      }
     }
-    is IOException -> {
-    }
-    else -> {
-      snackbarMessage.setValue(R.string.default_error)
-    }
+    Timber.e(t)
   }
 }

@@ -9,14 +9,15 @@ apply from: '../config/dependencies.gradle'
 apply plugin: 'kotlin-kapt'
 
 android {
-  compileSdkVersion 27
+  compileSdkVersion 28
   defaultConfig {
     applicationId "io.jffiorillo.venezuelanews"
     minSdkVersion 16
-    targetSdkVersion 27
+    targetSdkVersion 28
     versionCode 1
     versionName "1.0"
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    multiDexEnabled true
   }
   buildTypes {
     release {
@@ -36,13 +37,14 @@ android {
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
   implementation android.support
   implementation android.constraint
   implementation android.recycler
-  testImplementation 'junit:junit:4.12'
-  androidTestImplementation 'com.android.support.test:runner:1.0.1'
-  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+  implementation android.design
+  implementation android.palette
+  implementation android.core
+  implementation android.material
 
   implementation dagger.android
   implementation dagger.support
@@ -53,19 +55,21 @@ dependencies {
   implementation arch.lifecycleExtension
   kapt arch.lifecycleCompiler
 
-  implementation androidx.core
   implementation store.cache
   implementation store.store
   implementation store.kotlin
-  implementation (store.middleware){
-    exclude group : 'io.reactivex:rxjava'
+  implementation(store.middleware) {
+    exclude group: 'io.reactivex:rxjava'
   }
   implementation store.filesystem
   implementation square.retrofit
-  implementation square.converterGson
   implementation square.adapterRxJava
   implementation square.interceptor
   implementation square.timber
+  implementation square.moshi
+  implementation square.moshiAdapter
+  implementation square.moshiRetrofit
+  implementation square.threetenabp
 
   implementation rx.java
   implementation rx.android
@@ -76,5 +80,9 @@ dependencies {
   implementation glide.okhttp
   implementation glide.annotations
   kapt glide.compiler
+
+  testImplementation 'junit:junit:4.12'
+  androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
 
 }

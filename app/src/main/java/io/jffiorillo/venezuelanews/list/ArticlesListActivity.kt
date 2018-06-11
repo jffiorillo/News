@@ -1,11 +1,10 @@
 package io.jffiorillo.venezuelanews.list
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import dagger.android.support.DaggerAppCompatActivity
 import io.jffiorillo.venezuelanews.R
 import io.jffiorillo.venezuelanews.databinding.ArticlesListBinding
@@ -38,10 +37,9 @@ class ArticlesListActivity : DaggerAppCompatActivity() {
       (rvRepository.adapter as ArticlesAdapter).sourceList = it ?: emptyList()
     })
 
-    LinearLayoutManager(ctx).let { ll ->
-      rvRepository.adapter = ArticlesAdapter { item ->
+    androidx.recyclerview.widget.LinearLayoutManager(ctx).let { ll ->
+      rvRepository.adapter = ArticlesAdapter(this) { item ->
         Timber.d("Item Selected %s", item)
-//        navigateToDetailActivity(item)
       }
       rvRepository.layoutManager = ll
     }

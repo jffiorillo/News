@@ -1,6 +1,6 @@
 package io.jffiorillo.venezuelanews.base
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseViewModel : ViewModel() {
