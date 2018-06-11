@@ -46,3 +46,5 @@ fun LocalDateTime.comparator(context: Context): String {
     " "
   }
 }
+
+fun String?.isNotNullAndNotEmpty() = !this.isNullOrEmpty()
