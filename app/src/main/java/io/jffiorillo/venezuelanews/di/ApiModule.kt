@@ -35,7 +35,6 @@ class ApiModule {
       .build()
 
   @Provides
-  @Singleton
   internal fun provideRetrofit(
       client: OkHttpClient,
       converterFactory: Converter.Factory,
@@ -50,23 +49,19 @@ class ApiModule {
       .build()
 
   @Provides
-  @Singleton
   internal fun provideConverterFactory(moshi: Moshi): Converter.Factory = MoshiConverterFactory.create(moshi)
 
   @Provides
-  @Singleton
   internal fun provideCallAdapterFactory(
       schedulers: ExecutionSchedulers
   ): CallAdapter.Factory = RxJava2CallAdapterFactory.createWithScheduler(schedulers.io())
 
   @Provides
-  @Singleton
   internal fun provideGithubService(retrofit: Retrofit): ArticleApi =
       retrofit.create(ArticleApi::class.java)
 
 
   @Provides
-  @Singleton
   @Named("rootUrl")
   internal fun provideRootUrl(): String = "https://gunow.vcoud.com/"
 }

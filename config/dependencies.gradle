@@ -2,7 +2,7 @@ ext {
   dagger_version = '2.16'
   anko_version = '0.10.4'
   arch_version = '1.1.0'
-  store_version = '3.0.0'
+  store_version = '3.1.0'
   timber_version = '4.6.0'
   retrofit_version = '2.3.0'
   logging_interceptor_version = '3.8.1'
@@ -59,7 +59,8 @@ ext {
       design    : "com.google.android.material:material:" + support_version,
       palette   : 'androidx.palette:palette:' + support_version,
       core      : 'androidx.core:core-ktx:' + support_version,
-      material  : 'com.google.android.material:material:' + support_version
+      material  : 'com.google.android.material:material:' + support_version,
+      fragmentKtx  : 'androidx.fragment:fragment-ktx:' + support_version
   ]
 
   glide = [

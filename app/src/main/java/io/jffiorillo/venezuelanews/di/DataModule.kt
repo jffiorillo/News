@@ -15,14 +15,11 @@ import javax.inject.Singleton
 class DataModule {
 
   @Provides
-  @Singleton
   fun provideMoshi() = Moshi.Builder().add(KotlinJsonAdapterFactory()).add(LocalDateTime::class.java, LocalDateTimeAdapter()).build()!!
 
   @Provides
-  @Singleton
   internal fun provideCacheDir(context: Context) = FileSystemFactory.create(context.cacheDir)
 
   @Provides
-  @Singleton
   internal fun provideExecutionSchedulers() = object : ExecutionSchedulers {}
 }

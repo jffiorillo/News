@@ -7,11 +7,12 @@ import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import dagger.android.support.DaggerApplication
 import io.jffiorillo.venezuelanews.App
-import javax.inject.Singleton
+import io.jffiorillo.venezuelanews.base.di.ApplicationScope
+import io.jffiorillo.venezuelanews.ui.main.MainActivity
 
-@Singleton
+@ApplicationScope
 @Component(
-    modules = [AndroidSupportInjectionModule::class, AppModule::class])
+  modules = [AndroidSupportInjectionModule::class, MainActivity.Module::class])
 interface AppComponent : AndroidInjector<DaggerApplication> {
 
   fun inject(instance: App)

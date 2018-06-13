@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:context=".ui.list.ArticlesListFragment">
+
+	<data>
+
+		<import type="android.view.View"/>
+
+		<variable
+			name="viewmodel"
+			type="io.jffiorillo.venezuelanews.ui.list.ArticlesListViewModel"/>
+	</data>
+
+	<androidx.coordinatorlayout.widget.CoordinatorLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+			xmlns:app="http://schemas.android.com/apk/res-auto"
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:tools="http://schemas.android.com/tools"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:id="@+id/coordinatorLayout"
+			app:snackbarMessage="@{viewmodel.snackbarMessage()}"
+			app:layout_behavior="@string/appbar_scrolling_view_behavior"
+			tools:showIn="@layout/articles_list_fragment">
+
+			<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+				xmlns:android="http://schemas.android.com/apk/res/android"
+				android:id="@+id/swipeContainer"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toStartOf="parent"
+				app:layout_constraintBottom_toTopOf="parent"
+				app:refreshing="@{safeUnbox(viewmodel.isLoading())}"
+				app:onRefreshListener="@{() -> viewmodel.refreshRepositories()}">
+
+				<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/rvRepository"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					app:layout_behavior="@string/appbar_scrolling_view_behavior"
+					tools:listitem="@layout/article_item_list"/>
+			</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+			<Button
+				android:id="@+id/btRetry"
+				style="@style/AppTheme.Button"
+				android:visibility="@{safeUnbox(viewmodel.isFailing()) ? View.VISIBLE : View.GONE}"
+				android:text="@string/retry"
+				android:onClick="@{() -> viewmodel.refreshRepositories()}"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintBottom_toBottomOf="parent"/>
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+		<com.google.android.material.appbar.AppBarLayout
+			android:id="@+id/appBar"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<androidx.appcompat.widget.Toolbar
+				android:id="@+id/toolbar"
+				style="@style/Widget.AppCompat.Toolbar"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:layout_scrollFlags="scroll|enterAlways|snap"
+				app:title="@string/app_name"/>
+		</com.google.android.material.appbar.AppBarLayout>
+	</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

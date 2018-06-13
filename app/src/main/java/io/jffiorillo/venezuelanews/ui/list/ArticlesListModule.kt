@@ -1,4 +1,4 @@
-package io.jffiorillo.venezuelanews.list
+package io.jffiorillo.venezuelanews.ui.list
 
 import com.nytimes.android.external.store3.base.Fetcher
 import com.nytimes.android.external.store3.base.impl.Store

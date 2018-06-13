@@ -1,4 +1,4 @@
-package io.jffiorillo.venezuelanews.di
+package io.jffiorillo.venezuelanews.base.di
 
 import androidx.lifecycle.ViewModelProvider
 import dagger.Binds

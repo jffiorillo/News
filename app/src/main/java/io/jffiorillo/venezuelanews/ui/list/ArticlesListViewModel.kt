@@ -1,4 +1,4 @@
-package io.jffiorillo.venezuelanews.list
+package io.jffiorillo.venezuelanews.ui.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class ArticlesListViewModel
 @Inject
 constructor(private val source: Store<List<Article>, String>,
-    private val schedulers: ExecutionSchedulers)
+            private val schedulers: ExecutionSchedulers)
   : BaseViewModel() {
 
   private val repository: MutableLiveData<List<Article>> = MutableLiveData()
@@ -36,26 +36,26 @@ constructor(private val source: Store<List<Article>, String>,
     }
   }
 
-  fun searchRepositories(fresh: Boolean = false) {
-    source.get("1")
-        .subscribeOn(schedulers.io()).observeOn(schedulers.ui())
-        .doOnSubscribe {
-          isFailing.value = false
-          isLoading.value = true
-        }.doAfterTerminate { isLoading.value = false }
-        .subscribe(
-            { repository.value = repository.value.orEmpty().plus(it) },
-            {
-              isFailing.value = true
-              handleError(it)
-            }
-        )
-        .addTo(disposables)
+  private fun searchRepositories() {
+    source.fetch("1")
+      .subscribeOn(schedulers.io()).observeOn(schedulers.ui())
+      .doOnSubscribe {
+        isFailing.value = false
+        isLoading.value = true
+      }.doAfterTerminate { isLoading.value = false }
+      .subscribe(
+        { repository.value = repository.value.orEmpty().plus(it) },
+        {
+          isFailing.value = true
+          handleError(it)
+        }
+      )
+      .addTo(disposables)
   }
 
   fun refreshRepositories() {
     repository.value = emptyList()
-    searchRepositories(fresh = true)
+    searchRepositories()
   }
 
   private fun handleError(t: Throwable) {

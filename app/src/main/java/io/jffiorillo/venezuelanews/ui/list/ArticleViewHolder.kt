@@ -1,8 +1,9 @@
-package io.jffiorillo.venezuelanews.list
+package io.jffiorillo.venezuelanews.ui.list
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.view.View
+import androidx.core.view.ViewCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -21,18 +22,19 @@ import io.jffiorillo.venezuelanews.utils.isNotNullAndNotEmpty
 import timber.log.Timber
 
 class ArticleViewHolder(private val binding: ArticleItemListBinding,
-                        private val activityContext: Context) : BaseViewHolder(binding) {
-  private val size = activityContext.resources.getDimensionPixelSize(R.dimen.item_image_size)
-  private val radius = activityContext.resources.getInteger(R.integer.image_item_radius)
+                        private val context: Context) : BaseViewHolder(binding) {
+  private val size = context.resources.getDimensionPixelSize(R.dimen.item_image_size)
+  private val radius = context.resources.getInteger(R.integer.image_item_radius)
 
-  fun bind(article: Article, itemClick: (Article) -> Unit) {
+  fun bind(article: Article, itemClick: (Article, View, View?) -> Unit) {
     binding.setVariable(BR.article, article)
-    binding.root.setOnClickListener { itemClick.invoke(article) }
+    ViewCompat.setTransitionName(binding.title, "title ${article.genId()}")
+    binding.root.setOnClickListener { itemClick.invoke(article, binding.title, getAndConfigureImage(article)) }
     binding.imageView.visibility = View.GONE
     if (article.imageUrl.isNotNullAndNotEmpty()) {
       val options = RequestOptions().override(size).placeholder(R.drawable.article_item_placeholder)
         .transforms(CenterCrop(), RoundedCorners(radius))
-      Glide.with(activityContext)
+      Glide.with(context)
         .asBitmap().apply(options)
         .listener(object : RequestListener<Bitmap> {
           override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
@@ -48,7 +50,15 @@ class ArticleViewHolder(private val binding: ArticleItemListBinding,
         })
         .load(article.imageUrl).into(binding.imageView)
     }
-    binding.date.text = article.date?.comparator(activityContext) ?: ""
+    binding.date.text = article.date?.comparator(context) ?: ""
     binding.executePendingBindings()
   }
+
+  private fun getAndConfigureImage(article: Article) = if (article.imageUrl.isNotNullAndNotEmpty() && binding.imageView.visibility == View.VISIBLE) {
+    ViewCompat.setTransitionName(binding.imageView, "image ${article.genId()}")
+    binding.imageView
+  } else {
+    null
+  }
+
 }
